@@ -11,21 +11,23 @@
 <body>
 <div id="header">
     <div class="container">
+        
         <nav>
             <img src="images/logo.png" class="logo"  height="20px" >
-            <ul id="sidemenu">
-                <li><a href="#header">Home</a></li>
+            
+            <ul id="sidemenu"  >
+                <li><a href="#header" >Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#portfolio">Product</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <i class="fas fa-times" onclick="closemenu()"></i>
             </ul>
             <i class="fas fa-bars" onclick="openmenu()"></i>
         </nav>
         <div class="header-text">
-            <p>Python full-stack developer</p>
-            <h1>Hi, I'm <span>Manikandan</span><br>Tamilnadu From India </h1>
+            <p>Python Fullstack<br>Developer</p>
+            <h1>Hi, I'm <span><b>Manikandan</b></span><br> from Tamil Nadu, India. </h1>
         </div>
     </div>
 </div>
@@ -34,11 +36,11 @@
     <div class="container">
         <div class="row">
             <div class="about-col-1">
-                <img src="images/user.png">
+                <img src="images/user.jpg">
             </div>
             <div class="about-col-2">
                 <h1 class="sub-title">About Me</h1>
-                <p>Hello! I am a passionate and self-driven Python developer with a keen interest in building efficient, scalable, and user-friendly applications. Recently graduated with a background in [Automobile engineering and completed the full-stack course on python] and a focus on Python programming, I am eager to leverage my skills in real-world projects and contribute to exciting software solutions.</p>
+                <p ><br><span>Hello! I am a passionate and self-driven Python developer with a keen interest in building efficient, scalable, and user-friendly applications. Recently graduated with a background in [Automobile engineering and completed the full-stack course on python] and a focus on Python programming, I am eager to leverage my skills in real-world projects and contribute to exciting software solutions.</span></p>
 
                 <div class="tab-titles">
                     <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
@@ -106,7 +108,7 @@
         </div>
     </div>
 </div>
-<!-- ----------portfolio------------ -->
+<!-- ----------my work------------ -->
 <div id="portfolio">
     <div class="container">
         <h1 class="sub-title">My Work</h1>
@@ -168,56 +170,68 @@
     </div>
     
 </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar and Google Sheets Form</title>
+    <!-- Link to FontAwesome for Icons -->
+    <script src="https://kit.fontawesome.com/c4254e24a8.js"></script>
+</head>
+<body>
 
+    <!-- Side Menu -->
+    <div id="sidemenu" style="position: fixed; top: 0; right: -200px; width: 200px; height: 100%; background-color: #333; color: white; padding: 15px; transition: 0.3s;">
+        <h2>Side Menu</h2>
+        <p>Menu content goes here.</p>
+        <button onclick="closemenu()">Close</button>
+    </div>
 
+    
 
-<script>
+    <script>
+        // Side Menu JavaScript
+        var sidemenu = document.getElementById("sidemenu");
 
-    var tablinks = document.getElementsByClassName("tab-links");
-    var tabcontents = document.getElementsByClassName("tab-contents");
-
-    function opentab(tabname){
-        for(tablink of tablinks){
-            tablink.classList.remove("active-link");
+        function openmenu() {
+            sidemenu.style.right = "0";
         }
-        for(tabcontent of tabcontents){
-            tabcontent.classList.remove("active-tab");
+
+        function closemenu() {
+            sidemenu.style.right = "-200px";
         }
-        event.currentTarget.classList.add("active-link");
-        document.getElementById(tabname).classList.add("active-tab");
-    }
 
-</script>
+        // Google Sheets Form Submission
+        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';  // Replace with your actual Google Apps Script URL
+        const form = document.forms['submit-to-google-sheet'];
+        const msg = document.getElementById("msg");
 
-<script>
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, {
+                method: 'POST',
+                body: new FormData(form)
+            })
+            .then(response => {
+                msg.innerHTML = "Message sent successfully!";
+                setTimeout(function(){
+                    msg.innerHTML = "";
+                }, 5000);
+                form.reset();
+            })
+            .catch(error => {
+                msg.innerHTML = "Error! " + error.message;
+                console.error('Error!', error.message);
+            });
+        });
+    </script>
 
-    var sidemeu = document.getElementById("sidemenu");
+</body>
+</html>
 
-    function openmenu(){
-        sidemeu.style.right = "0";
-    }
-    function closemenu(){
-        sidemeu.style.right = "-200px";
-    }
 
-</script>
-<script>
-    const scriptURL = '< add you own link here >' // add your own app script link here
-    const form = document.forms['submit-to-google-sheet']
-    const msg = document.getElementById("msg")
-  
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => {
-            msg.innerHTML = "Message sent successfully"
-            setTimeout(function(){
-                msg.innerHTML = ""
-            },5000)
-            form.reset()
-        })
-        .catch(error => console.error('Error!', error.message))
-    })
-  </script>
+
+
 </body>
 </html>
